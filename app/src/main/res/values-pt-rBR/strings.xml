@@ -22,12 +22,13 @@
     <string name="erro">Campo Vazio!</string>
     <string name="persistMenu">MenuPersistir</string>
     <string name="errorLogin">Senha Incorreta!</string>
-    <string name="find">find</string>
-    <string name="tipoLogradouro">tipoLogradouro</string>
-    <string name="logradouro">logradouro</string>
-    <string name="bairro">bairro</string>
-    <string name="cidade">cidade</string>
-    <string name="estado">estado</string>
-    <string name="cep">cep</string>
-    <string name="loading" />
+    <string name="find">CEP</string>
+    <string name="tipoLogradouro">Tipo Logradouro:</string>
+    <string name="logradouro">Logradouro:</string>
+    <string name="bairro">Bairro:</string>
+    <string name="cidade">Cidade:</string>
+    <string name="estado">Estado:</string>
+    <string name="cep">Cep:</string>
+    <string name="loading" >Loading...</string>
+    <string name="successEdit">Edição realizada com Sucesso!</string>
 </resources>

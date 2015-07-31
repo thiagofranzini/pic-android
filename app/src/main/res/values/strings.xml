@@ -29,4 +29,5 @@
     <string name="estado">estado</string>
     <string name="cep">cep</string>
     <string name="loading" />
+    <string name="successEdit">successEdit</string>
 </resources>

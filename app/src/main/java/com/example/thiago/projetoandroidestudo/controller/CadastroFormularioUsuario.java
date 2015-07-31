@@ -31,6 +31,7 @@ import com.example.thiago.projetoandroidestudo.util.FormUtil;
  */
 public class CadastroFormularioUsuario  extends AppCompatActivity{
 
+    public static boolean isAlterar = false;
     public static final String CLIENT_PARAM = "CLIENT_PARAM";
     private Cliente cliente;
     private EditText editTextName;
@@ -193,7 +194,13 @@ public class CadastroFormularioUsuario  extends AppCompatActivity{
                 cliente = bindCliente();
                 ClienteDatabaseDAO.getInstance().save(cliente);
                 clearEditText();
-                Toast.makeText(CadastroFormularioUsuario.this, R.string.success, Toast.LENGTH_SHORT ).show();
+                if(isAlterar){
+                    Toast.makeText(CadastroFormularioUsuario.this, R.string.successEdit, Toast.LENGTH_SHORT ).show();
+                    isAlterar = false;
+                }
+                else{
+                    Toast.makeText(CadastroFormularioUsuario.this, R.string.success, Toast.LENGTH_SHORT ).show();
+                }
                 finish();
             }
         }

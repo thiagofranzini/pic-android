@@ -145,6 +145,7 @@ public class ConsultaUsuarioCadastrado extends AppCompatActivity {
         else if(item.getItemId() == R.id.menuEdit){
             Intent goToPersistActivity = new Intent(ConsultaUsuarioCadastrado.this, CadastroFormularioUsuario.class);
             goToPersistActivity.putExtra(CadastroFormularioUsuario.CLIENT_PARAM, (Parcelable)this.cliente);
+            CadastroFormularioUsuario.isAlterar = true;
             startActivity(goToPersistActivity);
         }
 
