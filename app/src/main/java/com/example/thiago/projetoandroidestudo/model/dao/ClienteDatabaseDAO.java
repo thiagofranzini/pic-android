@@ -4,10 +4,12 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.thiago.projetoandroidestudo.model.entities.Cliente;
+import com.example.thiago.projetoandroidestudo.model.entities.Usuario;
 import com.example.thiago.projetoandroidestudo.util.AppUtil;
 
 /**
@@ -36,17 +38,22 @@ public final class ClienteDatabaseDAO implements IClienteDataBaseDAO {
         SQLiteDatabase db = helper.getWritableDatabase();
 
         ContentValues values = ClientContract.getContentValues(cliente);
-
-        if(cliente.getId() == null){
-            db.insert(ClientContract.TABLE, null, values);
+        try{
+            if(cliente.getId() == null){
+                db.insert(ClientContract.TABLE, null, values);
+            }
+            else{
+                String where = ClientContract.ID + " = ?";
+                String[] args = {cliente.getId().toString()};
+                db.update(ClientContract.TABLE, values, where, args);
+            }
         }
-        else{
-            String where = ClientContract.ID + " = ?";
-            String[] args = {cliente.getId().toString()};
-            db.update(ClientContract.TABLE, values, where, args);
+        catch (Exception e){
+            throw new RuntimeException(e);
+        }finally {
+            db.close();
+            helper.close();
         }
-        db.close();
-        helper.close();
     }
 
     @Override
@@ -75,6 +82,49 @@ public final class ClienteDatabaseDAO implements IClienteDataBaseDAO {
     }
 
     @Override
+    public boolean verificarSenhaAdm(Usuario usuario) {
+        DataBaseHelper helper = new DataBaseHelper(AppUtil.CONTEXT);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        String where = ClientContract.USERNAME + " = ? AND "+ ClientContract.PASSWORD + " = ? ";
+        String[] args = {usuario.getUsuario(), usuario.getSenha()};
+
+        try {
+            return db.query(ClientContract.TABLE, ClientContract.COLUMNS_ADM, where, args, null, null, null, null).moveToFirst();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+        finally {
+            db.close();
+        }
+    }
+
+    @Override
+    public void saveUser(Usuario usuario) {
+        DataBaseHelper helper = new DataBaseHelper(AppUtil.CONTEXT);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues values = ClientContract.getContentValuesAdm();
+        try{
+            if(usuario.getId() == null){
+                db.insert(ClientContract.TABLE, null, values);
+            }
+            else{
+                String where = ClientContract.ID + " = ?";
+                String[] args = {usuario.getId().toString()};
+                db.update(ClientContract.TABLE, values, where, args);
+            }
+        }
+        catch (Exception e){
+            throw new RuntimeException(e);
+        }finally {
+            db.close();
+            helper.close();
+        }
+    }
+
+    /*
+    @Override
     public boolean verificarSenhaAdm(Cliente cliente) {
         DataBaseHelper helper = new DataBaseHelper(AppUtil.CONTEXT);
         SQLiteDatabase db = helper.getReadableDatabase();
@@ -88,9 +138,10 @@ public final class ClienteDatabaseDAO implements IClienteDataBaseDAO {
         finally {
             db.close();
         }
-
-
     }
+    */
+
+
 
 
 }

@@ -37,15 +37,15 @@ public class CadastroFormularioUsuario  extends AppCompatActivity{
     private EditText editTextName;
     private EditText editTextIdade;
     private EditText editTextTelefone;
+    private EditText editTextEmail;
     private EditText editTextCep;
     private EditText editTextTipoLogradouro;
     private EditText editTextLogradouro;
     private EditText editTextBairro;
     private EditText editTextCidade;
     private EditText editTextEstado;
-    private Button buttonFindCep;
 
-    private EditText editTextEndereco;
+    private Button buttonFindCep;
 
 
     @Override
@@ -56,7 +56,7 @@ public class CadastroFormularioUsuario  extends AppCompatActivity{
         this.editTextName = (EditText) findViewById(R.id.insertName);
         this.editTextIdade = (EditText) findViewById(R.id.insertIdade);
         this.editTextTelefone = (EditText) findViewById(R.id.insertTelefone);
-        this.editTextEndereco = (EditText) findViewById(R.id.insertEnderedo);
+        this.editTextEmail = (EditText) findViewById(R.id.insertEnderedo);
 
         Bundle extras = getIntent().getExtras();
         bindFields();
@@ -74,7 +74,7 @@ public class CadastroFormularioUsuario  extends AppCompatActivity{
         editTextName.setText(cliente.getNome());
         editTextIdade.setText(String.valueOf(cliente.getIdade()));
         editTextTelefone.setText(cliente.getTelefone());
-        editTextEndereco.setText(cliente.getEndereco());
+        editTextEmail.setText(cliente.getEmail());
         editTextCep.setText(cliente.getAdress().getCep());
         editTextTipoLogradouro.setText(cliente.getAdress().getTipoDeLogradouro());
         editTextLogradouro.setText(cliente.getAdress().getLogradouro());
@@ -107,7 +107,7 @@ public class CadastroFormularioUsuario  extends AppCompatActivity{
         });
         editTextIdade = (EditText)findViewById(R.id.insertIdade);
         editTextTelefone = (EditText)findViewById(R.id.insertTelefone);
-        editTextEndereco = (EditText)findViewById(R.id.insertEnderedo);
+        editTextEmail = (EditText)findViewById(R.id.insertEnderedo);
         editTextCep = (EditText) findViewById(R.id.editTextCep);
         editTextTipoLogradouro = (EditText) findViewById(R.id.editTextTipoLogradouro);
         editTextLogradouro = (EditText) findViewById(R.id.editTextLogradouro);
@@ -192,14 +192,19 @@ public class CadastroFormularioUsuario  extends AppCompatActivity{
         if(item.getItemId() == R.id.menuPersistir){
             if(FormUtil.validarCamposObrigatorios(CadastroFormularioUsuario.this, this.bindEditText())){
                 cliente = bindCliente();
-                ClienteDatabaseDAO.getInstance().save(cliente);
-                clearEditText();
-                if(isAlterar){
-                    Toast.makeText(CadastroFormularioUsuario.this, R.string.successEdit, Toast.LENGTH_SHORT ).show();
-                    isAlterar = false;
+                try {
+                    ClienteDatabaseDAO.getInstance().save(cliente);
+                    clearEditText();
+                    if(isAlterar){
+                        Toast.makeText(CadastroFormularioUsuario.this, R.string.successEdit, Toast.LENGTH_SHORT ).show();
+                        isAlterar = false;
+                    }
+                    else{
+                        Toast.makeText(CadastroFormularioUsuario.this, R.string.success, Toast.LENGTH_SHORT ).show();
+                    }
                 }
-                else{
-                    Toast.makeText(CadastroFormularioUsuario.this, R.string.success, Toast.LENGTH_SHORT ).show();
+                catch (Exception e){
+                    Toast.makeText(CadastroFormularioUsuario.this, R.string.erroConexao, Toast.LENGTH_SHORT ).show();
                 }
                 finish();
             }
@@ -211,13 +216,13 @@ public class CadastroFormularioUsuario  extends AppCompatActivity{
         this.editTextName.setText("");
         this.editTextIdade.setText("");
         this.editTextTelefone.setText("");
-        this.editTextEndereco.setText("");
+        this.editTextEmail.setText("");
         this.editTextName.requestFocus();
     }
 
 
     private EditText[] bindEditText(){
-        return new EditText[] {this.editTextName, this.editTextEndereco, this.editTextIdade, this.editTextIdade};
+        return new EditText[] {this.editTextName, this.editTextEmail, this.editTextIdade, this.editTextIdade};
     }
 
     private Cliente bindCliente(){
@@ -225,7 +230,7 @@ public class CadastroFormularioUsuario  extends AppCompatActivity{
             this.cliente = new Cliente();
         }
         cliente.setNome(editTextName.getText().toString());
-        cliente.setEndereco(editTextEndereco.getText().toString());
+        cliente.setEmail(editTextEmail.getText().toString());
         cliente.setIdade(Integer.valueOf(editTextIdade.getText().toString()));
         cliente.setTelefone(editTextTelefone.getText().toString());
         return cliente;

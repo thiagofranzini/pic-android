@@ -30,4 +30,5 @@
     <string name="cep">cep</string>
     <string name="loading" />
     <string name="successEdit">successEdit</string>
+    <string name="erroConexao">erroConexao</string>
 </resources>

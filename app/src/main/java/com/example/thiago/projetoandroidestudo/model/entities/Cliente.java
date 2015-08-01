@@ -18,10 +18,8 @@ public class Cliente implements Comparable, Serializable, Parcelable{
     private String nome;
     private Integer idade;
     private String telefone;
-    private String usuario;
-    private String senha;
+    private String email;
     private ClientAddress adress;
-
 
     public Cliente(){
         super();
@@ -32,8 +30,6 @@ public class Cliente implements Comparable, Serializable, Parcelable{
         readToParcel(in);
     }
 
-
-
     public ClientAddress getAdress() {
         if(adress == null){
             adress = new ClientAddress();
@@ -43,24 +39,6 @@ public class Cliente implements Comparable, Serializable, Parcelable{
 
     public void setAdress(ClientAddress adress) {
         this.adress = adress;
-    }
-
-    private String endereco;
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public Integer getId() {
@@ -96,14 +74,13 @@ public class Cliente implements Comparable, Serializable, Parcelable{
         this.telefone = telefone;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setEmail(String email) {
+        this.email = email;
     }
-
 
     @Override
     public int compareTo(Object another) {
@@ -137,14 +114,8 @@ public class Cliente implements Comparable, Serializable, Parcelable{
         dest.writeString(this.nome == null ? null : this.nome);
         dest.writeInt(this.idade == null ? null : this.idade);
         dest.writeString(this.telefone == null ? null : this.telefone);
-        dest.writeString(this.endereco == null ? null : this.endereco);
-        dest.writeString(this.usuario == null ? null : this.usuario);
-        dest.writeString(this.senha == null ? null : this.senha);
+        dest.writeString(this.email == null ? null : this.email);
         dest.writeParcelable(adress, flags);
-    }
-
-    public boolean realizarLoginAdm(){
-       return ClienteDatabaseDAO.getInstance().verificarSenhaAdm(this);
     }
 
     public static final Parcelable.Creator<Cliente> CREATOR = new Parcelable.Creator<Cliente>(){
@@ -158,14 +129,13 @@ public class Cliente implements Comparable, Serializable, Parcelable{
 
 
     public void readToParcel(Parcel in) {
-        id = in.readInt();
-        nome = in.readString();
-        idade = in.readInt();
-        endereco = in.readString();
-        telefone = in.readString();
-        adress = in.readParcelable(ClientAddress.class.getClassLoader());
+        this.id = in.readInt();
+        this.nome = in.readString();
+        this.idade = in.readInt();
+        this.email = in.readString();
+        this.telefone = in.readString();
+        this.adress = in.readParcelable(ClientAddress.class.getClassLoader());
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -179,11 +149,8 @@ public class Cliente implements Comparable, Serializable, Parcelable{
         if (idade != null ? !idade.equals(cliente.idade) : cliente.idade != null) return false;
         if (telefone != null ? !telefone.equals(cliente.telefone) : cliente.telefone != null)
             return false;
-        if (usuario != null ? !usuario.equals(cliente.usuario) : cliente.usuario != null)
-            return false;
-        if (senha != null ? !senha.equals(cliente.senha) : cliente.senha != null) return false;
-        if (adress != null ? !adress.equals(cliente.adress) : cliente.adress != null) return false;
-        return !(endereco != null ? !endereco.equals(cliente.endereco) : cliente.endereco != null);
+        if (email != null ? !email.equals(cliente.email) : cliente.email != null) return false;
+        return !(adress != null ? !adress.equals(cliente.adress) : cliente.adress != null);
 
     }
 
@@ -193,10 +160,8 @@ public class Cliente implements Comparable, Serializable, Parcelable{
         result = 31 * result + (nome != null ? nome.hashCode() : 0);
         result = 31 * result + (idade != null ? idade.hashCode() : 0);
         result = 31 * result + (telefone != null ? telefone.hashCode() : 0);
-        result = 31 * result + (usuario != null ? usuario.hashCode() : 0);
-        result = 31 * result + (senha != null ? senha.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (adress != null ? adress.hashCode() : 0);
-        result = 31 * result + (endereco != null ? endereco.hashCode() : 0);
         return result;
     }
 }

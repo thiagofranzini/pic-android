@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.thiago.projetoandroidestudo.R;
 import com.example.thiago.projetoandroidestudo.model.entities.Cliente;
+import com.example.thiago.projetoandroidestudo.model.entities.Usuario;
 import com.example.thiago.projetoandroidestudo.util.FormUtil;
 
 /**
@@ -26,8 +27,7 @@ public class LoginUsuario extends AppCompatActivity {
     private EditText editTextUsername;
     private EditText editTextPassword;
     private Cliente cliente;
-
-
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,36 +39,32 @@ public class LoginUsuario extends AppCompatActivity {
         this.submeterFormularioLogin();
     }
 
-
-
-
     private void submeterFormularioLogin() {
         this.button = (Button) findViewById(R.id.submitLoginButton);
         this.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (FormUtil.validarUsuarioLogado(LoginUsuario.this, editTextUsername, editTextPassword)) {
-                    Cliente cliente  = bindCliente();
-                    if(cliente.realizarLoginAdm()){
+                    Usuario usuario  = bindUsuario();
+                    if(usuario.realizarLoginAdm()){
                         Intent goToListView = new Intent(LoginUsuario.this, ConsultaUsuarioCadastrado.class);
                         startActivity(goToListView);
                     }
                     else{
                         Toast.makeText(LoginUsuario.this, R.string.errorLogin, Toast.LENGTH_SHORT ).show();
                     }
-
                 }
             }
         });
     }
 
-    private Cliente bindCliente(){
-        if(this.cliente == null) {
-            this.cliente = new Cliente();
+    private Usuario bindUsuario(){
+        if(this.usuario == null) {
+            this.usuario = new Usuario();
         }
-        cliente.setUsuario(editTextUsername.getText().toString());
-        cliente.setSenha(editTextPassword.getText().toString());
-        return cliente;
+        usuario.setUsuario(editTextUsername.getText().toString());
+        usuario.setSenha(editTextPassword.getText().toString());
+        return usuario;
     }
 
     @Override

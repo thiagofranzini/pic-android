@@ -36,7 +36,7 @@ public class ClienteDAO implements IClienteDAO {
         client.setNome(cliente.getNome());
         client.setIdade(cliente.getIdade());
         client.setTelefone(cliente.getTelefone());
-        client.setEndereco(cliente.getEndereco());
+        client.setEmail(cliente.getEmail());
         return client;
     }
 
