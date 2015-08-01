@@ -6,4 +6,4 @@ Projeto criado durante o treinamento.
 * Adicionada mensagem personalizada no fluxo de Edição de Cliente.
 * Correção e formatação dos textos apresentados dentro dos EditTexts
 * Adicionado fluxo de exceção apresentando mensagem de erro para conexão com banco de dados.
-* Adicionado Regex na validação dos formulários, nos campos Telefone e idade.
+* Adicionado Regex na validação dos formulários, nos campos Telefone e idade, e acrescimo de mensagem de Exceção personalizada. 
