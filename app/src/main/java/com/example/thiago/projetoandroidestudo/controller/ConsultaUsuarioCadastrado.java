@@ -39,6 +39,7 @@ public class ConsultaUsuarioCadastrado extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view_base);
         this.bindClientList();
+        
         this.bindFab();
     }
 
