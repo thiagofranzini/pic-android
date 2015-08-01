@@ -31,4 +31,6 @@
     <string name="loading" />
     <string name="successEdit">successEdit</string>
     <string name="erroConexao">erroConexao</string>
+    <string name="formatPhoneError">formatPhoneError</string>
+    <string name="formatAgeError">formatAgeError</string>
 </resources>

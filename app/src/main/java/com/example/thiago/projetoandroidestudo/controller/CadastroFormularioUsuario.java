@@ -222,7 +222,7 @@ public class CadastroFormularioUsuario  extends AppCompatActivity{
 
 
     private EditText[] bindEditText(){
-        return new EditText[] {this.editTextName, this.editTextEmail, this.editTextIdade, this.editTextIdade};
+        return new EditText[] {this.editTextName, this.editTextEmail, this.editTextIdade, this.editTextTelefone};
     }
 
     private Cliente bindCliente(){
@@ -254,6 +254,12 @@ public class CadastroFormularioUsuario  extends AppCompatActivity{
 
         @Override
         protected void onPostExecute(ClientAddress clientAddress) {
+            editTextCep.setText(clientAddress.getCep());
+            editTextTipoLogradouro.setText(clientAddress.getTipoDeLogradouro());
+            editTextLogradouro.setText(clientAddress.getLogradouro());
+            editTextBairro.setText(clientAddress.getBairro());
+            editTextCidade.setText(clientAddress.getCidade());
+            editTextEstado.setText(clientAddress.getEstado());
             progressDialog.dismiss();
         }
     }

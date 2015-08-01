@@ -16,7 +16,7 @@
     <string name="delete">Delete</string>
     <string name="edit">Editar</string>
     <string name="confirmProgress">Voce tem certeza?</string>
-    <string name="confirm">Confirmação</string>
+    <string name="confirm">Alerta!</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="erro">Campo Vazio!</string>
@@ -32,4 +32,6 @@
     <string name="loading" >Loading...</string>
     <string name="successEdit">Edição realizada com Sucesso!</string>
     <string name="erroConexao">Erro de Conexão.</string>
+    <string name="formatPhoneError">Formato Incorreto! Obrigatório (999)99999-9999 ou (99)9999-9999.</string>
+    <string name="formatAgeError">Erro! Permitido apenas dois dígitos!</string>
 </resources>
